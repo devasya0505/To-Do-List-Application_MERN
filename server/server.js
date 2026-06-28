@@ -19,8 +19,12 @@ const app = express();
 connectDB();
 
 // ── Middleware ──────────────────────────────────────────
+const clientUrl = process.env.CLIENT_URL
+  ? process.env.CLIENT_URL.replace(/\/$/, '')
+  : 'http://localhost:5173';
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: clientUrl,
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
